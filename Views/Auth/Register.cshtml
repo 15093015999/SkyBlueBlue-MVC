@@ -1,0 +1,25 @@
+
+@model RegisterViewModel
+  <form asp-action="Register" asp-controller="Auth" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">账号</span>
+        </div>
+        <input asp-for="userName" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">密码</span>
+        </div>
+        <input asp-for="password" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">昵称</span>
+        </div>
+        <input asp-for="avatar" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">注册</button>
+    <div asp-validation-summary="All"></div>
+  </form>
+  <a asp-action="Login" asp-controller="Auth">已经有账号? 登录</a>

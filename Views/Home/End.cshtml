@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "考试结果";
+}
+@model int
+<center>
+    <h1>得分: @Model</h1>
+</center>
+
+<div class="progress">
+  <div  class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@Model" aria-valuemin="0" aria-valuemax="@ViewBag.Subtotal"></div>
+</div>
+
+<a style="margin-top:5%" asp-action="Index" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true">返回主页</a>
+<script>
+    window.onload=function(){
+        let subtotal=@ViewBag.Subtotal;
+        let scores=  @Model;
+        let percentage = parseInt(parseFloat(scores/subtotal).toFixed(2) * 100) + '%';
+        document.querySelector(".progress-bar").style="width:"+percentage;
+    };
+    
+
+
+</script>

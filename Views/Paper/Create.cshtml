@@ -1,0 +1,94 @@
+@{
+    ViewData["Title"] = "创建试卷";
+}
+<!-- @using SkyBlueBlue.Models
+@using System.Collections.Generic; -->
+@model PaperModel
+<link rel="stylesheet" href="/css/paperCreate.css" />
+<link rel="stylesheet" type="text/css" href="/css/Transfer.css">
+<form asp-action="Create" asp-controller="Paper" method="post" id="theForm">
+    
+    <ul class="list-group">
+        <li class="list-group-item active">
+            请填写试卷信息
+        </li>
+        <li class="list-group-item">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">标题</span>
+                </div>
+                <input asp-for="title">
+            </div>
+        </li>
+        
+    </ul>
+    <div>
+        <div class="ty-transfer mt20 ml20" id="ued-transfer-1">
+            <div class="fl ty-transfer-list transfer-list-left">
+                <div class="ty-transfer-list-head">
+                    未选题目
+                </div>
+                <div class="ty-transfer-list-body">
+                    <ul class="ty-tree-select">
+                        @foreach (var item in ViewBag.Topics)
+                        {  
+                        <li id="@item.id">
+                            <input type="hidden" id="@item.title">
+                            <div class="ty-tree-div">
+                                <label class="tyue-checkbox-wrapper">
+                                    <span class="tyue-checkbox">
+                                        <input type="checkbox" class="tyue-checkbox-input" id="tyue-checkbox-blue">
+                                        <span class="tyue-checkbox-circle">
+                                        </span>
+                                    </span>
+                                    <span class="tyue-checkbox-txt" title="@item.id">
+                                        
+                                        <a asp-controller="Topic" asp-action="Detail" asp-route-id="@item.id">@item.title</a>
+                                    </span>
+                                </label>
+                            </div>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="fl ty-transfer-operation">
+                <span class="ty-transfer-btn-toright to-switch">
+                </span>
+                <span class="ty-transfer-btn-toleft to-switch">
+                </span>
+            </div>
+            <div class="fl ty-transfer-list transfer-list-right">
+                <div class="ty-transfer-list-head">
+                    选中题目
+                </div>
+                <div class="ty-transfer-list-body">
+                    <ul class="ty-tree-select" id="result">
+                    </ul>
+                </div>
+            </div>
+            <div class="clearboth">
+            </div>
+        </div>
+    </div>
+    <input id="thebody" type="hidden" asp-for="body">
+    <br>
+
+    <input type="button" class="btn btn-primary btn-lg active btn-block" onclick="Submit()" value="添加"/>
+</form>
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/js/Transfer.js"></script>
+<script type="text/javascript">
+	$("#ued-transfer-1").transferItem();
+</script>
+<script>
+    function Submit() {
+        let keys =[];
+        $("#result").find('li').each(function() {
+            var obj = {'id':$(this).attr("id")};
+            keys.push(obj);
+        });
+        $('#thebody').val(JSON.stringify(keys));
+        $('#theForm').submit();
+    }
+</script>

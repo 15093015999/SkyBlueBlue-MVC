@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "添加判断题";
+}
+@model TopicModel
+<form id="theForm" method="post" asp-action="Create">
+
+
+    <div class="from-group row">
+        <label asp-for="title" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="title"/>
+        </div>
+    </div>
+
+
+    <div class="from-group row">
+        <label asp-for="content" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="content"/>
+        </div>
+    </div>
+
+
+    <div class="from-group row">
+        <label asp-for="scores" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control"  asp-for="scores"/>
+        </div>
+    </div>
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect">Options</label>
+        </div>
+        <select asp-for="answe" class="custom-select" id="inputGroupSelect">
+            <option selected>请选择答案</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+        </select>
+    </div>
+    <hr>
+    <input type="hidden" asp-for="type" value="Judge"/>
+    <div class="invalid" asp-validation-summary="ModelOnly"></div>
+    <button type="submit" class="btn btn-primary btn-block">提交</button>
+    <!-- <input type="button" class="btn btn-primary btn-block" onclick="Subimt()" value="提交"/> -->
+</form>

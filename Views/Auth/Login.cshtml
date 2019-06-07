@@ -1,0 +1,29 @@
+@{
+    Layout= null;
+}
+@model LoginViewModel
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>天蓝蓝登录窗</title>
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+    <div class="bkgd">
+        <form asp-action="Login" asp-controller="Auth" method="post">
+            <div class="login">
+                <h1 class="tital">天蓝蓝</h1>
+                <h1>考试系统</h1>
+                <input asp-for="userName"  class="identity" placeholder="账号">
+                <input asp-for="password" type="password" class="password" placeholder="密码">
+                <div asp-validation-summary="All" class="tishi"></div>
+                <button type="submit">登录</button>
+                <a asp-action="Register" asp-controller="Auth" style="color:#ccc;text-decoration:none;">还没有有账号? 注册</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

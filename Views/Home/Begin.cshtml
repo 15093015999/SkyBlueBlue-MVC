@@ -1,0 +1,269 @@
+@{
+    ViewData["Title"] = "考试中";
+}
+@model SubmitModel
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">@ViewBag.ThePaper.title</a>
+  <a class="navbar-brand">命题人 @ViewBag.ThePaper.teacherUserName</a>
+</nav>
+<form id="theForm" asp-action="End" method="post">
+  <div id="thebody"></div>
+  <input type="hidden" asp-for="paperId" value="@ViewBag.ThePaper.id">
+  <input id="result" type="hidden" asp-for="result">
+  <input type="button" class="btn btn-primary btn-block" onclick="Submit()" value="交卷"/>
+</form>
+
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script>
+  
+
+
+  function getTopics(){
+    var url = document.URL;
+    var index = url .lastIndexOf("\/");  
+    url = url.substring(index + 1, url .length);
+    let Topics = "";
+    $.ajax({
+      async:false,
+      url:'@Url.Action("TopicData")',
+      type: 'post',
+      dataType: 'json',
+      data:{id:url},
+      success: function (data, status) {
+        Topics=data;
+      },
+      fail: function (err, status) {
+        console.log(err)
+      }
+    });
+    return Topics;
+  } 
+
+  
+
+  function Choice(i,Topic){
+    let ulNode = document.createElement('ul');
+    ulNode.classList.add('list-group');
+    let liTiteleNode = document.createElement('li');
+    liTiteleNode.classList.add('list-group-item');
+    liTiteleNode.classList.add('active')
+    liTiteleNode.innerText = i + ". " + Topic.title +  "  ("+Topic.scores+"分)"
+    let content = JSON.parse(Topic.content);
+    let liContentNode = document.createElement('li');
+    liContentNode.classList.add('list-group-item');
+    liContentNode.innerText = content.content;
+
+    let liOptionANode = document.createElement('li');
+    liOptionANode.classList.add('list-group-item');
+    liOptionANode.innerText = "A. " +content.optionA;
+    let radioA = document.createElement("input");
+    radioA.type="radio";
+    radioA.name=i;
+    radioA.style="float:right"
+    liOptionANode.appendChild(radioA);
+
+
+    let liOptionBNode = document.createElement('li');
+    liOptionBNode.classList.add('list-group-item');
+    liOptionBNode.innerText = "B. " +content.optionB;
+    let radioB = document.createElement("input");
+    radioB.type="radio";
+    radioB.name=i;
+    radioB.style="float:right"
+    liOptionBNode.appendChild(radioB);
+
+    let liOptionCNode = document.createElement('li');
+    liOptionCNode.classList.add('list-group-item');
+    liOptionCNode.innerText = "C. " +content.optionC;
+    let radioC = document.createElement("input");
+    radioC.type="radio";
+    radioC.name=i;
+    radioC.style="float:right"
+    liOptionCNode.appendChild(radioC);
+    
+
+    let liOptionDNode = document.createElement('li');
+    liOptionDNode.classList.add('list-group-item');
+    liOptionDNode.innerText = "D. " +content.optionD;
+    let radioD = document.createElement("input");
+    radioD.type="radio";
+    radioD.name=i;
+    radioD.style="float:right"
+    liOptionDNode.appendChild(radioD);
+
+    let ahr = document.createElement('hr');
+    ulNode.appendChild(liTiteleNode);
+    ulNode.appendChild(liContentNode);
+    ulNode.appendChild(liOptionANode);
+    ulNode.appendChild(liOptionBNode);
+    ulNode.appendChild(liOptionCNode);
+    ulNode.appendChild(liOptionDNode);
+    ulNode.appendChild(ahr);
+    let thebody = document.getElementById('thebody');
+    thebody.appendChild(ulNode);
+  }
+
+
+
+  function Fill(i,Topic){
+    let ulNode = document.createElement('ul');  
+    ulNode.classList.add('list-group');
+    let liTiteleNode = document.createElement('li');
+    liTiteleNode.classList.add('list-group-item');
+    liTiteleNode.classList.add('active')
+    liTiteleNode.innerText =  i + ". "+Topic.title +  "  ("+Topic.scores+"分)"
+    let liContentNode = document.createElement('li');
+    liContentNode.classList.add('list-group-item');
+    liContentNode.innerText = Topic.content;
+
+    let liTextNode = document.createElement('li');
+    liTextNode.classList.add('list-group-item');
+    let text = document.createElement("input");
+    text.type="text";
+    text.name=i;
+    text.classList="input-group-text";
+    liTextNode.appendChild(text);
+
+    let ahr = document.createElement('hr');
+    ulNode.appendChild(liTiteleNode);
+    ulNode.appendChild(liContentNode);
+    ulNode.appendChild(liTextNode);
+    ulNode.appendChild(ahr);
+    let thebody = document.getElementById('thebody');
+    thebody.appendChild(ulNode);
+  }
+
+
+  function Judge(i,Topic){
+    let ulNode = document.createElement('ul');
+    ulNode.classList.add('list-group');
+    let liTiteleNode = document.createElement('li');
+    liTiteleNode.classList.add('list-group-item');
+    liTiteleNode.classList.add('active')
+    liTiteleNode.innerText = i + ". " + Topic.title +  "  ("+Topic.scores+"分)"
+
+    let liContentNode = document.createElement('li');
+    liContentNode.classList.add('list-group-item');
+    liContentNode.innerText = Topic.content;
+
+    let liTrueNode = document.createElement('li');
+    liTrueNode.classList.add('list-group-item');
+    liTrueNode.innerText = "对";
+    let radioTrue = document.createElement("input");
+    radioTrue.type="radio";
+    radioTrue.name=i;
+    radioTrue.style="float:right"
+    liTrueNode.appendChild(radioTrue);
+ 
+
+    let liFalseNode = document.createElement('li');
+    liFalseNode.classList.add('list-group-item');
+    liFalseNode.innerText = "错";
+    let radioFalse = document.createElement("input");
+    radioFalse.type="radio";
+    radioFalse.name=i;
+    radioFalse.style="float:right"
+    liFalseNode.appendChild(radioFalse);
+
+
+    let ahr = document.createElement('hr');
+    ulNode.appendChild(liTiteleNode);
+    ulNode.appendChild(liContentNode);
+    ulNode.appendChild(liTrueNode);
+    ulNode.appendChild(liFalseNode);
+    ulNode.appendChild(ahr);
+    let thebody = document.getElementById('thebody');
+    thebody.appendChild(ulNode);
+  }
+  
+  //扫描页面每道题所选的值
+  function Scan(name,type){
+    let docs = document.getElementsByName(name);
+
+    if(type==="Choice"){
+      for(let i=0;i<docs.length;i++){
+        if(docs[i].checked==true) {
+          switch(i){
+            case 0: return "A";
+            case 1: return "B";
+            case 2: return "C";
+            case 3: return "D";
+          }
+        }
+        
+      }
+      return "";
+    }
+    //如果是填空题
+    else if(type==="Fill"){
+      return docs[0].value; 
+    }
+    //如果是判断题
+    else if(type==="Judge"){
+      for(let i=0;i<docs.length;i++){
+        if(docs[i].checked==true) {
+          switch(i){
+            case 0: return "true";
+            case 1: return "false";
+          }
+        }
+      
+      }
+      return "";
+    }
+  
+  }
+
+
+  
+
+  function checkEmpty(result){
+    let pointOut = []
+    let flag = false;
+    for(let i=1;i<=result.length;i++){
+      if(result[i-1].value===""){
+        flag = true;
+        pointOut.push(i);
+      }
+    }
+
+    if(flag){
+      let msg = "第"+pointOut[0];
+      for(let i=1;i<pointOut.length;i++){
+        msg+=","+pointOut[i];
+      }
+      msg+="题没做!确认交卷吗?";
+      return msg;
+    }
+    return "确认交卷吗?";
+  }
+
+  var Topics = getTopics();
+
+  function Submit(){
+    let result = [];
+    for(let i=1;i<=this.Topics.length;i++){
+      let obj = {'value':Scan(i+'',this.Topics[i-1].type)};
+      result.push(obj);
+    }
+    //checkEmpty(result);
+    document.getElementById('result').value = JSON.stringify(result);
+    confirm(checkEmpty(result))?document.getElementById('theForm').submit():"";
+      
+    
+
+    
+  }
+
+
+  
+  for(let i=0;i<Topics.length;i++){
+    switch(Topics[i].type){
+      case 'Choice':Choice(i+1,Topics[i]);break;
+      case 'Fill':Fill(i+1,Topics[i]);break;
+      case 'Judge':Judge(i+1,Topics[i]);break;
+    }
+  }
+
+
+</script>

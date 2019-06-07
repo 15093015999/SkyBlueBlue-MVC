@@ -1,0 +1,102 @@
+@{
+    ViewData["Title"] = "添加选择题";
+}
+@model TopicModel
+<form id="theForm" method="post" asp-action="Create">
+
+
+    <div class="from-group row">
+        <label asp-for="title" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="title"/>
+        </div>
+    </div>
+
+
+    <div class="from-group row">
+        <label  class="col-sm-2">内容</label>
+        <div class="col-sm-10">
+            <input id="content" class="form-control" type="text"/>
+        </div>
+    </div>
+
+
+    <div class="from-group row">
+        <label asp-for="scores" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="scores"/>
+        </div>
+    </div>
+
+
+    <div class="from-group row">
+        <label class="col-sm-2">A选项</label>
+        <div class="col-sm-10">
+            <input id="optionA" class="form-control" type="text"/>
+        </div>
+    </div>
+
+
+
+    <div class="from-group row">
+        <label class="col-sm-2">B选项</label>
+        <div class="col-sm-10">
+            <input id="optionB" class="form-control" type="text"/>
+        </div>
+    </div>
+
+
+
+    <div class="from-group row">
+        <label class="col-sm-2">C选项</label>
+        <div class="col-sm-10">
+            <input id="optionC" class="form-control" type="text"/>
+        </div>
+    </div>
+
+
+    <div class="from-group row">
+        <label class="col-sm-2">D选项</label>
+        <div class="col-sm-10">
+            <input id="optionD" class="form-control" type="text"/>
+        </div>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect">Options</label>
+        </div>
+        <select asp-for="answe" class="custom-select" id="inputGroupSelect">
+            <option selected>请选择答案</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+    </div>
+    <hr>
+    <input type="hidden" asp-for="type" value="Choice"/>
+    <input type="hidden" id="subcontent" asp-for="content"/>
+    <div class="invalid" asp-validation-summary="ModelOnly"></div>
+    <!-- <button type="submit" class="btn btn-primary btn-block">提交</button> -->
+    <input type="button" class="btn btn-primary btn-block" onclick="Subimt()" value="提交"/>
+</form>
+<script>
+    function Subimt(){
+        var A = document.getElementById("optionA");
+        var B = document.getElementById("optionB");
+        var C = document.getElementById("optionC");
+        var D = document.getElementById("optionD");
+        var content = document.getElementById("content");
+        var obj = {
+            content:content.value,
+            optionA:A.value,
+            optionB:B.value,
+            optionC:C.value,
+            optionD:D.value
+        }
+        var subContent = document.getElementById("subcontent");
+        subContent.value = JSON.stringify(obj);
+        document.getElementById("theForm").submit();
+    }
+</script>

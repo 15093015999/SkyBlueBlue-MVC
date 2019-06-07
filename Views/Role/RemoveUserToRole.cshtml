@@ -1,0 +1,13 @@
+@model UserRoleViewModel
+@{
+    ViewBag.Title="从角色中移除用户";
+}
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="RemoveUserToRole" method="post">
+    <input type="hidden" name="roleId" value="@Model.RoleId"/>
+    <select class="form-control" asp-for="UserId" asp-items="@(new SelectList(Model.Users,"Id","UserName"))">
+        <option>--请选择一个用户--</option>
+    </select>
+    <button class="btn btn-danger btn-block" type="submit">移除</button>
+</form>

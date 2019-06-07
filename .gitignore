@@ -1,0 +1,6 @@
+### VS Code ###
+.vscode/
+
+### .net core ###
+/bin/
+/Migrations/

@@ -1,0 +1,14 @@
+@model ManagerClaimsViewModel;
+@{
+    ViewBag.Title="编辑用户的Claims";
+}
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="ManagerClaims" method="post">
+    <input type="hidden" name="userId" value="@Model.UserId"/>
+    <select class="form-control" asp-for="ClaimId" asp-items="@(new SelectList(Model.AllClaims))">
+        <option>--请选择Claim--</option>
+    </select>
+    <button class="btn btn-primary btn-block" type="submit">添加</button>
+    <a asp-action="UpdateUser" asp-route-id="@Model.UserId" class="btn btn-primary btn-block">返回用户界面</a>
+</form>

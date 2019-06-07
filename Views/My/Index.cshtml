@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "我的信息";
+}
+@model MyInfoModel
+
+<div class="jumbotron">
+  <h1 class="display-4">@Model.avatar</h1>
+  <p class="lead">ID: @Model.id</p>
+  <p class="lead">账号: @Model.userName</p>
+  @if(@Model.email!=null)
+  {
+      <p class="lead">邮箱: @Model.email</p>
+  }
+  
+  <hr class="my-4">
+  <p class="lead">身份: </p>
+  @foreach (var item in Model.roles)
+  {
+      <p>@item</p>
+  }
+  
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" asp-action="CheckHistory" role="button">历史成绩</a>
+  </p>
+  
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" asp-action="ChangePassword" role="button">修改密码</a>
+  </p>
+  
+  
+</div>

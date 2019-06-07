@@ -1,0 +1,17 @@
+body {
+  text-align: center;
+  margin: 0;
+  /* overflow: hidden; */
+}
+
+
+.trend {
+  
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+canvas{
+  width: 100%;
+  height: auto;
+}

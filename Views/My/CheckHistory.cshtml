@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "历史成绩";
+}
+<h1>历史成绩</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">试卷</th>
+            <th scope="col">总分</th>
+            <th scope="col">得分</th>
+        </tr>
+    </thead>
+    @foreach (var item in ViewBag.SuccessList)
+    {
+        <tbody>
+            <tr>
+                <td>@item.id</td>
+                <td>@item.paper</td>
+                <td>@item.subtotal</td>
+                <td>@item.scores</td>
+            </tr>
+        </tbody>
+    }
+</table>

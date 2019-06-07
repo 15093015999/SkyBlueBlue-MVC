@@ -1,0 +1,25 @@
+﻿@model List<PaperModel>
+@{
+    ViewData["Title"] = "试卷列表";
+}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">试卷</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@item.id</td>
+                <td>@item.title</td>
+                <td></td>
+                <td><a asp-action="Begin" asp-route-id="@item.id">开始考试</a></td>
+            </tr>
+        </tbody>
+    }
+</table>

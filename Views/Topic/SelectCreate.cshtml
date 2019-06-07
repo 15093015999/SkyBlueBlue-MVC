@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "选择添加题型";
+}
+@model TopicModel
+<form asp-action="SelectCreate" asp-controller="Topic" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect">Options</label>
+        </div>
+        <select name="Select" class="custom-select" id="inputGroupSelect">
+            <option selected>请选择题目类型</option>
+            <option value="Choice">选择题</option>
+            <option value="Fill">填空题</option>
+            <option value="Judge">判断题</option>
+        </select>
+    </div>
+    
+    <button class="btn btn-primary btn-lg active btn-block" role="button">选择</button>
+</form>

@@ -1,0 +1,31 @@
+@model List<PaperModel>
+@{
+    ViewData["Title"] = "题库";
+}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">试卷</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@item.id</td>
+                <td>@item.title</td>
+                <td><a asp-action="Detail" asp-route-id="@item.id">详细</a></td>
+                <td>
+                    <form id="subform @item.id" asp-action="Delete" asp-route-id="@item.id" method="post">
+                        <a style="color:red;cursor:pointer" onclick="confirm('确认删除?')?document.getElementById('subform @item.id').submit():'';">删除</a>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+<a asp-action="Create" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true">创建试卷</a>

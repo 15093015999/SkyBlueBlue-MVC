@@ -1,0 +1,48 @@
+@model RoleEditViewModel
+
+@{
+    ViewBag.Title = "编辑角色";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form method="post">
+    <div class="from-group row">
+        <label asp-for="Id" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Id">
+            <span class="invalid" asp-validation-for="Id"></span>
+        </div>
+    </div>
+    <div class="from-group row">
+        <label asp-for="RoleName" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="RoleName">
+            <span class="invalid" asp-validation-for="RoleName"></span>
+        </div>
+    </div>
+    <hr>
+    <div class="invalid" asp-validation-summary="ModelOnly"></div>
+    <button type="submit" class="btn btn-primary btn-block">保存</button>
+    <a asp-action="Index" class="btn btn-secondary btn-block">返回列表</a>
+</form>
+
+<hr><hr>
+<ul class="list-group" >
+    <li class="list-group-item active">角色的用户</li>
+    @foreach (var item in Model.Users)
+    {
+        <li class="list-group-item">@item</li>
+    }
+    <li class="list-group-item">
+        <a asp-action="AddUserToRole" asp-route-roleId="@Model.Id" class="btn btn-secondary btn-block">
+            为角色添加用户
+        </a>
+    </li>
+    <li class="list-group-item">
+        <a asp-action="RemoveUserToRole" asp-route-roleId="@Model.Id" class="btn btn-danger btn-block">
+            从角色移除用户
+        </a>
+    </li>
+</ul>
+<hr>

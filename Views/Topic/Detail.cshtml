@@ -1,0 +1,16 @@
+
+@model TopicModel
+@{
+    ViewData["Title"] = "查看题目";
+}
+<div class="list-group">
+  <a class="list-group-item active">
+   题目信息
+  </a>
+  <a class="list-group-item">题目：@Model.title</a>
+  <a class="list-group-item">类型：@Model.type</a>
+  <a class="list-group-item">分值：@Model.scores</a>
+  <a class="list-group-item">内容：@Model.content</a>
+  <a class="list-group-item">答案：@Model.answe</a>
+</div>
+<a asp-action="Index" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true">返回</a>
